@@ -8,6 +8,11 @@ public class Message {
     String date;
 
     public Message(String message){
-        this.message = message;
+        if(message.length()<=140){
+            this.message = message;
+        }
+        else{
+            throw new RuntimeException("Message zu lang");
+        }
     }
 }

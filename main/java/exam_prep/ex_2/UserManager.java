@@ -3,6 +3,7 @@ package exam_prep.ex_2;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.MissingFormatArgumentException;
 
 public class UserManager implements ObjectManager<User>{
 
@@ -10,11 +11,10 @@ public class UserManager implements ObjectManager<User>{
     public List<User> deserialize() throws RuntimeException{
         List<User> userlist = new ArrayList<>();
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("user.dat"))){
-            while(true){
+            while(true) {
                 try{
                     User user = (User) ois.readObject();
                     userlist.add(user);
-
                 }
                 catch(EOFException e){
                     break;
@@ -22,7 +22,7 @@ public class UserManager implements ObjectManager<User>{
             }
         }
         catch(Exception e){
-            throw new RuntimeException("Fehler bei der Deserialisierung!");
+            throw new RuntimeException(e);
         }
         return userlist;
     }
